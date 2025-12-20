@@ -2,6 +2,15 @@
 SCRIPT_PATH=$(readlink -f "$0")
 DIR_PATH=$(dirname "$SCRIPT_PATH")
 
+get_canoe_name() {
+    cpu_max_freq=$(cat /sys/devices/system/cpu/cpu7/cpufreq/cpuinfo_max_freq)
+    if [ "$cpu_max_freq" -gt 4000000 ]; then
+        echo "sdm8elite_gen5"
+    else
+        echo "sdm8gen5"
+    fi
+}
+
 get_pineapple_name() {
     gpu_model=$(cat /sys/class/kgsl/kgsl-3d0/gpu_model)
     case "$gpu_model" in
